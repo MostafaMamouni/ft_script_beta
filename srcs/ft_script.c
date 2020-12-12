@@ -6,7 +6,7 @@
 /*   By: mmostafa <mmostafa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 13:45:52 by mmostafa          #+#    #+#             */
-/*   Updated: 2020/12/12 17:20:36 by mmostafa         ###   ########.fr       */
+/*   Updated: 2020/12/12 17:48:36 by mmostafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int main(int ac, char **av)
 {
 	int			master_fd = -1;
+	(void)ac;
 	char input[150];
 	int ret;
 	const char	slave_name[128];
@@ -99,19 +100,7 @@ int main(int ac, char **av)
     	setsid();
 
 	    ioctl(0, TIOCSCTTY, 1);
-		{
- 			char **child_av;
-	  		int i;
-
- 		    child_av = (char **)malloc(ac * sizeof(char *));
-      		for (i = 1; i < ac; i ++)
-      		{
-      	  		child_av[i - 1] = strdup(av[i]);
-      		}
-      		child_av[i - 1] = NULL;
-      		ret = execvp(child_av[0], child_av);
+      	ret = execvp(av[1], &av[1]);
     }
-
-	}
 	return (0);
 }
